@@ -1,0 +1,28 @@
+.searchItem{
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background: #5b5bffed;
+    height: 30px;
+    line-height: 30px;
+    color: white;
+    margin-bottom: 3px;
+    cursor: pointer;
+}
+#searchSubmit{
+    cursor: pointer;
+    width: 150px;
+    height: 40px;
+    background: #f1a8a8ba;
+    line-height: 40px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+#searchStr{
+    width: 200px;
+    line-height: 30px;
+    padding-left: 10px;
+    margin-bottom: 10px;
+}
