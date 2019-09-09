@@ -16,10 +16,8 @@ module.exports = (port) => {
 
         engine.on('error', (err) => console.log(err));
         await util.promisify(engine.on('ready'));
-        track = engine.files.find(x => {
-            return x.path === filePathTorr
-                || x.path === filePathTorrLinux;
-        });
+        track = engine.files.find(x => x.path === filePathTorr
+            || x.path === filePathTorrLinux);
 
 
         const total = track.length;
