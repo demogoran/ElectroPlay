@@ -14,7 +14,11 @@ const RUTRACKER_LOGIN = "searchertrack",
     trackerCookie = await rutracker.login(RUTRACKER_LOGIN, RUTRACKER_PASSWORD);
 })();
 
-const getTrackerMP3List = ($, $elem, magnet) => {
+const getTrackerMP3List = (html, magnetHTML) => {
+    const $ = cheerio.load(html);
+    const $m = cheerio.load(magnetHTML);
+    const elem = $('.ftree');
+    const magnet = $m('[class*="magnet-link-"]').attr('href')
     const result = Array.from($elem.find('b:contains(.mp3)')).map((x, i) => {
         const title = $(x).text();
         const $dir = $(x).parents('.dir');
@@ -44,7 +48,6 @@ module.exports = {
                 cookie: trackerCookie,
             },
         });
-        const $m = cheerio.load(magnetHTML);
 
         const html = await pRequest('https://rutracker.org/forum/viewtorrent.php', {
             method: "POST",
@@ -55,8 +58,7 @@ module.exports = {
                 t: id
             }
         });
-        const $ = cheerio.load(html);
-        const result = getTrackerMP3List($, $('.ftree'), $m('[class*="magnet-link-"]').attr('href'));
+        const result = getTrackerMP3List(html, magnetHTML);
         return result;
     },
     Search: async (str) => {
