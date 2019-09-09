@@ -1,5 +1,6 @@
 const torrentStream = require('torrent-stream');
 const fastify = require('fastify')();
+const util = require('util');
 
 
 module.exports = (port) => {
@@ -12,16 +13,13 @@ module.exports = (port) => {
         if (engine) engine.destroy();
 
         engine = torrentStream(magnet);
-        track = await new Promise((resolve) => {
-            engine.on('ready', () => {
-                resolve(engine.files.find(x => {
-                    return x.path === filePathTorr
-                        || x.path === filePathTorrLinux;
-                }));
-            });
-            engine.on('error', (err) => console.log(err));
-        });
 
+        engine.on('error', (err) => console.log(err));
+        await util.promisify(engine.on('ready'));
+        track = engine.files.find(x => {
+            return x.path === filePathTorr
+                || x.path === filePathTorrLinux;
+        });
 
 
         const total = track.length;
