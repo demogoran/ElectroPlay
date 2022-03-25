@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
-    "electron": "^6.0.7",
+    "electron": "^13.6.6",
     "fastify": "^2.8.0",
     "render-media": "^3.4.0",
     "request": "^2.88.0",
